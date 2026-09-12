@@ -22,10 +22,9 @@ The analysis answers four questions:
 |---|---|
 | `facility_affiliation_analysis.ipynb` | Executed Jupyter notebook containing the complete CRISP-DM analysis, model, evaluation, and scenario prediction. |
 | `blog_post.md` | A 200–500 word, nontechnical article summarizing the findings. |
-| `blog_post.html` | A browser-ready version of the article. |
+| `blog_post.html` | A browser-ready version of the article with its charts embedded for reliable publishing. |
 | `index.html` | The GitHub Pages entry point for the published article. |
-| `images/` | Charts used in the notebook and blog post. |
-| `data/Facility_Affiliation.csv.gz` | Compressed source data used by the notebook. |
+| `data/README.md` | Instructions and the official CMS link for obtaining the public source data. |
 | `requirements.txt` | Python libraries required to reproduce the analysis. |
 
 ## Libraries
@@ -60,7 +59,7 @@ The analysis answers four questions:
 4. Start Jupyter with `jupyter notebook`.
 5. Open `facility_affiliation_analysis.ipynb` and run all cells from top to bottom.
 
-The data file is already compressed in `data/` and pandas reads it directly. If the data is excluded when publishing the repository, download it from the official CMS page, save it as `data/Facility_Affiliation.csv`, compress it with gzip, and use the filename `data/Facility_Affiliation.csv.gz`.
+The public source data is not duplicated in the GitHub repository. Download it from the official CMS page, save it as `data/Facility_Affiliation.csv`, compress it with gzip, and use the filename `data/Facility_Affiliation.csv.gz`.
 
 ## Limitations
 

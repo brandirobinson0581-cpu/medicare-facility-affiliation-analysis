@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>One Provider, Many Doors</title>
+  <style>
+    :root {
+      --ink: #17324d;
+      --muted: #526777;
+      --accent: #1f7a8c;
+      --paper: #ffffff;
+      --wash: #eef6f7;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--wash);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.65;
+    }
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 48px 64px;
+      background: var(--paper);
+      box-shadow: 0 12px 35px rgba(23, 50, 77, 0.12);
+    }
+    h1 {
+      margin: 0 0 24px;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+    }
+    h2 {
+      margin-top: 42px;
+      padding-top: 12px;
+      border-top: 3px solid var(--accent);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.35rem;
+    }
+    p { font-size: 1.08rem; }
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 22px 0 28px;
+      border: 1px solid #d9e5e8;
+    }
+    .lead {
+      color: var(--muted);
+      font-size: 1.25rem;
+    }
+    footer {
+      margin-top: 44px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    @media (max-width: 700px) {
+      main { margin: 0; padding: 32px 22px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>One Provider, Many Doors: What 2.25 Million Medicare Affiliations Reveal</h1>
+    <img src="images/facility_type_counts.png" alt="Bar chart showing hospital affiliations dominate the CMS facility affiliation file">
+    <p class="lead">Healthcare looks connected from the outside, but the actual network is uneven. I analyzed 2,254,034 Medicare facility-affiliation records covering 940,577 providers to see how those connections are distributed and whether a simple model could identify providers who work across different care settings.</p>
+
+    <h2>1. Which facilities dominate the data?</h2>
+    <p>Hospitals account for 1,913,975 records, far more than any other setting. That was my first warning not to treat the national total as a balanced picture of healthcare. Hospital activity can easily drown out smaller settings such as hospice, dialysis, and long-term care.</p>
+
+    <h2>2. How connected are individual providers?</h2>
+    <img src="images/provider_affiliation_distribution.png" alt="Distribution of provider facility affiliation counts">
+    <p>The typical network is not huge. The median provider has two facility affiliations. Still, 56.0% are affiliated with more than one facility, and 16.1% cross into more than one type of care setting. That smaller cross-setting group may be especially important when health systems are planning transitions between hospital and follow-up care.</p>
+
+    <h2>3. Where are multi-facility networks most common?</h2>
+    <img src="images/multi_facility_rate_by_type.png" alt="Multi-facility affiliation rates by provider primary setting">
+    <p>The differences are sharp. About 97.7% of dialysis-centered providers and 91.6% of home-health-centered providers have multiple facility affiliations. The rate falls to 9.0% for providers centered in long-term care hospitals. These are associations, not proof that a setting causes a larger network, but they show where I would investigate first.</p>
+
+    <h2>4. Can the model spot cross-setting providers?</h2>
+    <img src="images/model_performance.png" alt="Model metrics and confusion matrix">
+    <p>My logistic-regression model reached 85.6% accuracy and 83.0% recall on providers it had not seen during training. That accuracy is only 1.7 percentage points above the 83.9% majority baseline, so I would not call accuracy alone impressive. The model's 0.948 ranking score means it separates the two groups well across possible cutoffs. However, only 53.4% of the profiles it flags are actually cross-setting, so the false alarms matter.</p>
+    <p>For a realistic planning scenario, I tested a summarized hospital-centered profile with four affiliations while imagining that the setting details had not arrived yet. The model estimated a 56.8% chance that the affiliations cross care settings. I would use that result to prioritize a manual review, not to make an automatic decision. Once the complete facility-type history is available, the team should calculate the answer directly instead of using the model. The data can point us toward a useful question, but a person still needs to verify the answer.</p>
+
+    <footer>
+      Source: <a href="https://data.cms.gov/provider-data/dataset/27ea-46a8">Centers for Medicare &amp; Medicaid Services, Facility Affiliation Data</a>.
+      The analysis notebook and reproducibility materials are available in the
+      <a href="https://github.com/brandirobinson0581-cpu/medicare-facility-affiliation-analysis">public GitHub repository</a>.
+    </footer>
+  </main>
+</body>
+</html>
